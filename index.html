@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多喝热水少看盘 - 让交易更从容</title>
+    <meta name="description" content="专为交易员设计的心理健康工具，少看盘多喝水，让交易更从容">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 防跳楼提醒横幅 -->
+    <div class="suicide-banner" id="suicideBanner">
+        <span class="banner-icon">🆘</span>
+        <span class="banner-text">如果你正在经历极度痛苦，请记住：钱可以再赚，命只有一条。亏损不是世界末日，明天太阳还会升起。</span>
+        <button class="banner-close" onclick="closeBanner()">×</button>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showSection('home')">
+                <span class="logo-icon">☕</span>
+                <span class="logo-text">多喝热水少看盘</span>
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" onclick="showSection('home')">首页</a>
+                <a href="#" class="nav-link" onclick="showSection('quiz')">类型测试</a>
+                <a href="#" class="nav-link" onclick="showSection('wall')">哭墙</a>
+                <a href="#" class="nav-link" onclick="showSection('poison')">毒鸡汤</a>
+                <a href="#" class="nav-link" onclick="showSection('breathing')">呼吸训练</a>
+                <a href="#" class="nav-link" onclick="showSection('notes')">交易笔记</a>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- 移动端菜单 -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#" class="mobile-link" onclick="showSection('home'); toggleMobileMenu();">首页</a>
+        <a href="#" class="mobile-link" onclick="showSection('quiz'); toggleMobileMenu();">类型测试</a>
+        <a href="#" class="mobile-link" onclick="showSection('wall'); toggleMobileMenu();">哭墙</a>
+        <a href="#" class="mobile-link" onclick="showSection('poison'); toggleMobileMenu();">毒鸡汤</a>
+        <a href="#" class="mobile-link" onclick="showSection('breathing'); toggleMobileMenu();">呼吸训练</a>
+        <a href="#" class="mobile-link" onclick="showSection('notes'); toggleMobileMenu();">交易笔记</a>
+    </div>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+        
+        <!-- 首页 -->
+        <section class="section home-section active" id="home">
+            <!-- 时间提醒 -->
+            <div class="time-alert" id="timeAlert" style="display: none;">
+                <!-- 动态加载 -->
+            </div>
+
+            <!-- Hero区域 -->
+            <div class="hero">
+                <div class="hero-content">
+                    <p class="hero-greeting" id="greeting">早安，交易员</p>
+                    <blockquote class="hero-quote" id="dailyQuote">
+                        "亏损是交易的一部分，接受它，然后继续前行。"
+                    </blockquote>
+                    <p class="hero-author" id="quoteAuthor">—— 杰西·利弗莫尔</p>
+                    <p class="hero-translation" id="quoteTranslation">意思是：亏了就亏了，别死扛。</p>
+                    <button class="hero-btn" onclick="refreshQuote()">
+                        <span>换一条</span>
+                        <span class="refresh-icon">🔄</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SB操作按钮 -->
+            <div class="sb-operation-section">
+                <button class="sb-operation-btn" onclick="triggerSBMode()">
+                    <span class="sb-icon">💀</span>
+                    <span class="sb-text">我想执行SB操作</span>
+                </button>
+                <p class="sb-hint">点击此按钮，强制冷静5分钟</p>
+            </div>
+
+            <!-- 使用场景 -->
+            <div class="scenarios">
+                <h2 class="section-title">你现在需要什么？</h2>
+                <div class="scenario-grid">
+                    <div class="scenario-card" onclick="showRandomArticle('loss')">
+                        <div class="scenario-icon">🩲</div>
+                        <h3>刚亏损了</h3>
+                        <p>穿着底裤的流浪汉上线</p>
+                    </div>
+                    <div class="scenario-card" onclick="showRandomArticle('win')">
+                        <div class="scenario-icon">💃</div>
+                        <h3>刚盈利了</h3>
+                        <p>财神爷跳舞模式</p>
+                    </div>
+                    <div class="scenario-card" onclick="showRandomArticle('anxious')">
+                        <div class="scenario-icon">😰</div>
+                        <h3>感到焦虑</h3>
+                        <p>放松心情，找回平静</p>
+                    </div>
+                    <div class="scenario-card" onclick="showRandomArticle('sleep')">
+                        <div class="scenario-icon">🌙</div>
+                        <h3>睡前阅读</h3>
+                        <p>放下复盘，安心入睡</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 快捷入口 -->
+            <div class="scenarios">
+                <h2 class="section-title">快捷工具</h2>
+                <div class="scenario-grid">
+                    <div class="scenario-card" onclick="showSection('quiz')">
+                        <div class="scenario-icon">🧪</div>
+                        <h3>类型测试</h3>
+                        <p>了解你的交易风格</p>
+                    </div>
+                    <div class="scenario-card" onclick="showSection('wall')">
+                        <div class="scenario-icon">😭</div>
+                        <h3>交易员哭墙</h3>
+                        <p>看别人亏得更惨</p>
+                    </div>
+                    <div class="scenario-card" onclick="showSection('poison')">
+                        <div class="scenario-icon">🥣</div>
+                        <h3>毒鸡汤生成器</h3>
+                        <p>随机交易金句</p>
+                    </div>
+                    <div class="scenario-card" onclick="showSection('breathing')">
+                        <div class="scenario-icon">🫁</div>
+                        <h3>呼吸训练</h3>
+                        <p>平复情绪，找回专注</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 推荐内容 -->
+            <div class="recommendations">
+                <div class="section-header">
+                    <h2 class="section-title">推荐阅读</h2>
+                    <a href="#" class="view-all" onclick="showRandomArticle('all')">随机一篇 →</a>
+                </div>
+                <div class="content-grid" id="recommendedContent">
+                    <!-- 动态加载 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 内容详情 -->
+        <section class="section detail-section" id="detail">
+            <button class="back-btn" onclick="goBack()">← 返回</button>
+            <article class="article" id="articleContent">
+                <!-- 动态加载 -->
+            </article>
+        </section>
+
+        <!-- 交易员类型测试 -->
+        <section class="section quiz-section" id="quiz">
+            <div class="library-header">
+                <h1 class="page-title">🧪 交易员类型测试</h1>
+                <p class="page-desc">通过6道题，了解你的交易性格（不准别打我）</p>
+            </div>
+            <div class="quiz-progress" id="quizProgress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text">第 <span id="currentQuestion">1</span> / <span id="totalQuestions">6</span> 题</p>
+            </div>
+            <div class="quiz-container" id="quizContainer">
+                <div class="quiz-question" id="quizQuestion"></div>
+            </div>
+            <div class="quiz-result" id="quizResult" style="display: none;"></div>
+        </section>
+
+        <!-- 交易员哭墙 -->
+        <section class="section wall-section" id="wall">
+            <div class="library-header">
+                <h1 class="page-title">😭 交易员哭墙 (The Wall of Tears)</h1>
+                <p class="page-desc">看到别人比你亏得更惨，是最高级的心理安抚</p>
+            </div>
+
+            <!-- 最蠢操作分享 -->
+            <div class="stupid-ops-section">
+                <h2 class="section-title">🏆 本周最蠢操作</h2>
+                <div class="stupid-ops-list" id="stupidOpsList">
+                    <!-- 动态加载 -->
+                </div>
+            </div>
+
+            <!-- 吐槽区 -->
+            <div class="wall-post-section">
+                <h2 class="section-title">匿名吐槽区</h2>
+                <textarea class="wall-input" id="wallInput" placeholder="说出来吧，说出来就好了...（匿名发布）"></textarea>
+                <button class="wall-post-btn" onclick="postToWall()">发布到哭墙</button>
+                
+                <div class="wall-posts" id="wallPosts">
+                    <!-- 动态加载 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 毒鸡汤生成器 -->
+        <section class="section poison-section" id="poison">
+            <div class="library-header">
+                <h1 class="page-title">🥣 毒鸡汤生成器</h1>
+                <p class="page-desc">每一句都是交易真相，只是有点扎心</p>
+            </div>
+
+            <div class="poison-container">
+                <div class="poison-card" id="poisonCard">
+                    <p class="poison-text" id="poisonText">"只要我不卖，我就永远是股东"</p>
+                </div>
+                <button class="poison-btn" onclick="generatePoison()">
+                    <span>🎲</span>
+                    <span>来一碗毒鸡汤</span>
+                </button>
+            </div>
+
+            <div class="poison-collection">
+                <h3 class="section-title">经典毒鸡汤收录</h3>
+                <div class="poison-list" id="poisonList">
+                    <!-- 动态加载 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SB操作冷静模式 -->
+        <div class="sb-modal" id="sbModal">
+            <div class="sb-modal-content">
+                <div class="sb-timer" id="sbTimer">5:00</div>
+                <div class="sb-video" id="sbVideo">
+                    🐼🐼🐼<br>
+                    熊猫吃竹子中...<br>
+                    <span style="font-size: 48px;">🎋</span>
+                </div>
+                <p class="sb-modal-text">既然都要亏，不如先看五分钟熊猫吃竹子</p>
+                <p class="sb-modal-subtext">让钱在账户里多待一会儿</p>
+                <button class="sb-modal-btn" id="sbModalBtn" disabled>我冷静了（倒计时结束后可用）</button>
+            </div>
+        </div>
+
+        <!-- 呼吸训练 -->
+        <section class="section breathing-section" id="breathing">
+            <div class="library-header">
+                <h1 class="page-title">呼吸训练</h1>
+                <p class="page-desc">跟随节奏，平复情绪，找回内心的平静</p>
+</div>
+            <div class="breathing-patterns">
+                <div class="pattern-card active" onclick="setBreathingPattern('relax')">
+                    <div class="pattern-icon">😌</div>
+                    <div class="pattern-name">放松呼吸</div>
+                    <div class="pattern-desc">4-7-8呼吸法，适合平复焦虑</div>
+                </div>
+                <div class="pattern-card" onclick="setBreathingPattern('focus')">
+                    <div class="pattern-icon">🎯</div>
+                    <div class="pattern-name">专注呼吸</div>
+                    <div class="pattern-desc">箱式呼吸，适合提升专注</div>
+                </div>
+                <div class="pattern-card" onclick="setBreathingPattern('sleep')">
+                    <div class="pattern-icon">😴</div>
+                    <div class="pattern-name">助眠呼吸</div>
+                    <div class="pattern-desc">慢速呼吸，适合睡前放松</div>
+                </div>
+            </div>
+            <div class="breathing-container">
+                <div class="breathing-circle" id="breathingCircle" onclick="toggleBreathing()">
+                    <span id="breathingPhase">点击开始</span>
+                </div>
+                <div class="breathing-text" id="breathingText">准备好开始了吗？</div>
+                <div class="breathing-subtext" id="breathingSubtext">跟随圆圈的节奏呼吸</div>
+                <div class="breathing-controls">
+                    <button class="breathing-btn primary" onclick="startBreathing()">开始训练</button>
+                    <button class="breathing-btn secondary" onclick="stopBreathing()">停止</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 交易笔记 -->
+        <section class="section notes-section" id="notes">
+            <div class="library-header">
+                <h1 class="page-title">交易笔记</h1>
+                <p class="page-desc">记录交易心情，复盘成长历程</p>
+            </div>
+            <div class="notes-header">
+                <h3 class="section-title" style="margin-bottom: 0;">我的笔记</h3>
+                <button class="add-note-btn" onclick="openNoteModal()">+ 写笔记</button>
+            </div>
+            <div class="notes-list" id="notesList"></div>
+            <div class="empty-state" id="emptyNotes">
+                <span class="empty-icon">📝</span>
+                <p>还没有交易笔记</p>
+            </div>
+        </section>
+
+        <!-- 我的 -->
+        <section class="section profile-section" id="profile">
+            <div class="profile-header">
+                <div class="profile-avatar" id="profileAvatar">🧘</div>
+                <h2 class="profile-name" id="profileName">交易员</h2>
+                <p class="profile-desc" id="profileType">点击"类型测试"了解自己</p>
+            </div>
+            <div class="profile-stats">
+                <div class="profile-stat">
+                    <span class="stat-num" id="readCount">0</span>
+                    <span class="stat-label">已阅读</span>
+                </div>
+                <div class="profile-stat">
+                    <span class="stat-num" id="favoriteCount">0</span>
+                    <span class="stat-label">收藏</span>
+                </div>
+                <div class="profile-stat">
+                    <span class="stat-num" id="streakCount">0</span>
+                    <span class="stat-label">连续天数</span>
+                </div>
+                <div class="profile-stat">
+                    <span class="stat-num" id="noteCount">0</span>
+                    <span class="stat-label">笔记</span>
+                </div>
+            </div>
+            <div class="profile-section-content">
+                <h3 class="profile-section-title">我的收藏</h3>
+                <div class="favorite-list" id="favoriteList"></div>
+                <div class="empty-state" id="emptyFavorites">
+                    <span class="empty-icon">📚</span>
+                    <p>还没有收藏内容</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 浮动吉祥物 -->
+    <div class="mascot-float">
+        <div class="mascot-speech" id="mascotSpeech">多喝热水！☕</div>
+        <div class="mascot-menu" id="mascotMenu">
+            <div class="mascot-menu-item" onclick="triggerSBMode(); toggleMascotMenu();">
+                <span class="mascot-menu-icon">💀</span>
+                <span class="mascot-menu-text">我要SB操作了</span>
+            </div>
+            <div class="mascot-menu-item" onclick="showSection('wall'); toggleMascotMenu();">
+                <span class="mascot-menu-icon">😭</span>
+                <span class="mascot-menu-text">去哭墙发泄</span>
+            </div>
+            <div class="mascot-menu-item" onclick="generatePoison(); toggleMascotMenu();">
+                <span class="mascot-menu-icon">🥣</span>
+                <span class="mascot-menu-text">来碗毒鸡汤</span>
+            </div>
+        </div>
+        <div class="mascot-avatar" id="mascotAvatar" onclick="toggleMascotMenu()">☕</div>
+    </div>
+
+    <!-- 笔记编辑模态框 -->
+    <div class="note-modal" id="noteModal">
+        <div class="note-modal-content">
+            <div class="note-modal-header">
+                <h3 class="note-modal-title">写交易笔记</h3>
+                <button class="note-modal-close" onclick="closeNoteModal()">×</button>
+            </div>
+            <div class="note-form-group">
+                <label class="note-form-label">今天心情如何？</label>
+                <div class="mood-selector">
+                    <button class="mood-option" data-mood="happy" onclick="selectMood(this)">😊</button>
+                    <button class="mood-option" data-mood="calm" onclick="selectMood(this)">😌</button>
+                    <button class="mood-option" data-mood="sad" onclick="selectMood(this)">😢</button>
+                    <button class="mood-option" data-mood="anxious" onclick="selectMood(this)">😰</button>
+                    <button class="mood-option" data-mood="angry" onclick="selectMood(this)">😠</button>
+                    <button class="mood-option" data-mood="tired" onclick="selectMood(this)">😴</button>
+                </div>
+            </div>
+            <div class="note-form-group">
+                <label class="note-form-label">今天交易情况</label>
+                <select class="note-form-input" id="noteTradeStatus">
+                    <option value="">选择...</option>
+                    <option value="profit">盈利 🎉</option>
+                    <option value="loss">亏损 💸</option>
+                    <option value="break_even">持平 😐</option>
+                    <option value="no_trade">没交易 🚫</option>
+                </select>
+            </div>
+            <div class="note-form-group">
+                <label class="note-form-label">写下你的想法</label>
+                <textarea class="note-form-textarea" id="noteContent" placeholder="今天学到了什么？"></textarea>
+            </div>
+            <button class="note-submit-btn" onclick="saveNote()">保存笔记</button>
+        </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <nav class="bottom-nav">
+        <a href="#" class="bottom-nav-item active" onclick="showSection('home')">
+            <span class="bottom-nav-icon">🏠</span>
+            <span class="bottom-nav-label">首页</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="showSection('wall')">
+            <span class="bottom-nav-icon">😭</span>
+            <span class="bottom-nav-label">哭墙</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="showSection('poison')">
+            <span class="bottom-nav-icon">🥣</span>
+            <span class="bottom-nav-label">毒鸡汤</span>
+        </a>
+        <a href="#" class="bottom-nav-item" onclick="showSection('breathing')">
+            <span class="bottom-nav-icon">🫁</span>
+            <span class="bottom-nav-label">呼吸</span>
+        </a>
+    </nav>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">多喝热水少看盘 · 让交易更从容</p>
+            <p class="footer-copyright">© 2025 AI家族企业出品</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
