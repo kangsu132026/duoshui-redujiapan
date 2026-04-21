@@ -145,10 +145,6 @@ function setDailyQuote() {
     const quote = quotes[Math.floor(Math.random() * quotes.length)];
     document.getElementById('dailyQuote').textContent = `"${quote.text}"`;
     document.getElementById('quoteAuthor').textContent = `—— ${quote.author}`;
-    
-    // 幽默翻译
-    const translation = quoteTranslations[quote.text] || "意思是：听人劝，吃饱饭。";
-    document.getElementById('quoteTranslation').textContent = translation;
 }
 
 function refreshQuote() {
